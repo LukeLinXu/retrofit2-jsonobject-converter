@@ -1,10 +1,12 @@
 package retrofit;
 
-import com.squareup.okhttp.ResponseBody;
+import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import retrofit.Converter;
-import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
 
 final class JsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 
@@ -18,8 +20,9 @@ final class JsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
         try {
             jsonObj = new JSONObject(value.string());
             return (T) jsonObj;
-        } catch(JSONException e) {
+        } catch (JSONException e) {
             return null;
         }
     }
+
 }
