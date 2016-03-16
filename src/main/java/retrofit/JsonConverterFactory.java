@@ -1,11 +1,14 @@
 package retrofit;
 
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.ResponseBody;
-import org.json.JSONObject;
-import retrofit.Converter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+
+import org.json.JSONObject;
+
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
 
 public class JsonConverterFactory extends Converter.Factory {
 
@@ -13,11 +16,14 @@ public class JsonConverterFactory extends Converter.Factory {
         return new JsonConverterFactory ();
     }
 
-    public Converter<ResponseBody, ?> fromResponseBody(Type type, Annotation[] annotations) {
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         return new JsonResponseBodyConverter<JSONObject>();
     }
 
-    public Converter<?, RequestBody> toRequestBody(Type type, Annotation[] annotations) {
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
         return new JsonRequestBodyConverter<JSONObject>();
     }
+
 }
